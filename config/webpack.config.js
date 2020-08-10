@@ -382,6 +382,8 @@ module.exports = function(webpackEnv) {
                       },
                     },
                   ],
+                  // antd ui组件按需加载配置
+                  [ 'import',{libraryName:'antd',style:'css'}]
                 ],
                 // This is a feature of `babel-loader` for webpack (not Babel itself).
                 // It enables caching results in ./node_modules/.cache/babel-loader/
@@ -463,7 +465,16 @@ module.exports = function(webpackEnv) {
                   sourceMap: isEnvProduction && shouldUseSourceMap,
                 },
                 'sass-loader'
-              ),
+              ).concat({  //配置全局变量 不需要每个文件都导入
+                loader:'sass-resources-loader',
+                options:{
+                  resources:[
+                    //全局变量 scss
+                  path.resolve(__dirname,'./../src/styles/main.scss')
+                  ]
+                }
+
+              }),
               // Don't consider CSS imports dead code even if the
               // containing package claims to have no side effects.
               // Remove this when webpack adds a warning or an error for this.
@@ -501,6 +512,10 @@ module.exports = function(webpackEnv) {
                 name: 'static/media/[name].[hash:8].[ext]',
               },
             },
+            {
+              test: '/\.scss$/',    //node-sass 配置
+              loaders: ['style-loader','css-loader','sass-loader']
+            }
             // ** STOP ** Are you adding a new loader?
             // Make sure to add the new loader(s) before the "file" loader.
           ],
