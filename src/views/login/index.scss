@@ -1,0 +1,26 @@
+.form-wrap {
+    display: flex; //弹性布局
+    width: 300px;
+    height: 100vh;
+    margin: auto;
+    align-items: center; // 垂直居中
+    >div { width: 100%; }
+}
+
+.form-headr{
+    height: 56px;
+    line-height: 56px;
+    
+    .column {
+        margin-bottom: 0 !important;
+        float: left;
+        font-size: 16px;
+        color: #fff;
+    }
+    span {
+        float: right;
+        font-size: 12px;
+        opacity: .3;
+        color: #fff;
+    }
+}

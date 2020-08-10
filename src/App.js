@@ -1,5 +1,6 @@
 import React from 'react';
-import { Button } from 'antd';
+import Login from './views/login/index';
+import {HashRouter, Switch ,Route} from 'react-router-dom';
 class App extends  React.Component {
        constructor(props) {
          super();
@@ -9,7 +10,11 @@ class App extends  React.Component {
          return (
          //React.Fragment 跟标签不被渲染
          <React.Fragment>  
-              <Button type='primary'>测试</Button>
+              <HashRouter>
+                <Switch>
+                  <Route  component ={Login} path='/'></Route>
+                </Switch>
+              </HashRouter>
          </React.Fragment>
          )
        }
