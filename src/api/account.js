@@ -23,3 +23,15 @@ export function getSmsApi(data){
         //params:data   //请求类型位get
     })
 }
+/**
+ * 登录接口
+ * 
+ */
+export function registerApi(data){
+  return  service.request({
+        url:'/register/',
+        method:'post',
+        data:data ,       //请求类型位post
+        //params:data   //请求类型位get
+    })
+}
