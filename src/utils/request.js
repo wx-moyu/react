@@ -1,7 +1,7 @@
 import axios from 'axios';
 //创建实例
 const service = axios.create({
-    baseURL: 'devapi',
+    baseURL: process.env.REACT_APP_API,
     timeout: 5000
 });
 // 添加请求拦截器
