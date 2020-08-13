@@ -1,6 +1,10 @@
 import React from 'react';
 import Login from './views/login/index';
-import {HashRouter, Switch ,Route} from 'react-router-dom';
+import Index from './views/index/Index';
+import { BrowserRouter, Switch ,Route} from 'react-router-dom';
+//私有组件方法
+
+import  PrivateRouter from './components/privateRouter/index';
 class App extends  React.Component {
        constructor(props) {
          super();
@@ -10,11 +14,12 @@ class App extends  React.Component {
          return (
          //React.Fragment 跟标签不被渲染
          <React.Fragment>  
-              <HashRouter>
+              <BrowserRouter>
                 <Switch>
-                  <Route  component ={Login} path='/'></Route>
+                  <Route  exact component ={Login} path='/'></Route>
+                  <PrivateRouter  exact  component ={Index} path='/index'></PrivateRouter>
                 </Switch>
-              </HashRouter>
+              </BrowserRouter>
          </React.Fragment>
          )
        }

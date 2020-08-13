@@ -1,0 +1,12 @@
+.logo {
+    display: flex;             //flex布局
+    height: 83px;
+    align-content: center;     //垂直居中
+    justify-content: center;   // 水平居中
+    span {
+        display: block;
+        width: 177px;
+        height: 47px;
+        background-color: #1a2d3f;
+    }
+}

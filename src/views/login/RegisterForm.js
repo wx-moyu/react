@@ -1,26 +1,42 @@
 import React from 'react';
-import { Form, Input, Button } from 'antd';      // from 表单
+import { Form, Input, Button, message } from 'antd';      // from 表单
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import { Row, Col } from 'antd';   //栅格布局
 import './index.scss';
 import Code from '../../components/code';
 import { registerApi } from '../../api/account';
-import { validate_password } from '../../utils/validate'
+import { validate_password } from '../../utils/validate';
+import Crypto from 'crypto-js'
 class RegisterForm extends React.Component {
     constructor() {
         super();
         this.state = {
-            username: ''
-
+            username: '',
+            register_btn_loading: false
         };
     }
     //表单方法
     onFinish = (values) => {
+        this.setState({
+            register_btn_loading: true
+        })
         delete values.passwords;
+        values.password = Crypto.MD5(values.password).toString();  //密码MD5加密
         registerApi(values).then(response => {
-            console.log(response);
+        
+            if (response.resCode === 0) {
+                this.toggleForm();
+                this.setState({
+                    register_btn_loading: false
+                })
+            } else {
+                message.info(response.message);
+            }
         }).catch(error => {
-            console.log(error);
+            this.setState({
+                register_btn_loading: false
+            })
+            message.info(error.message);
         });
     };
     //输入事件
@@ -35,8 +51,7 @@ class RegisterForm extends React.Component {
         this.props.switchForm("login");
     };
     render() {
-        const _this = this;
-        const { username, code, password } = this.state;
+        const { username, register_btn_loading } = this.state;
         return (
             <React.Fragment>
                 <div className='form-headr'>
@@ -83,7 +98,7 @@ class RegisterForm extends React.Component {
                             </Row>
                         </Form.Item>
                         <Form.Item>
-                            <Button type="primary" htmlType="submit" className="login-form-button" block> 注册</Button>
+                            <Button type="primary" htmlType="submit" loading={register_btn_loading} className="login-form-button" block> 注册</Button>
                         </Form.Item>
                     </Form>
                 </div>
